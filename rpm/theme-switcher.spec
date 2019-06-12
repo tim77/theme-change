@@ -1,4 +1,4 @@
-%global commit      ceb42e570b33830a8d0375ce68249434d35e47a7
+%global commit      3db178c3a9713534cf915590cb6c63204f9b9378
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date        20190612
 
@@ -19,6 +19,11 @@ BuildRequires:  systemd
 %description
 %{summary}.
 
+You need to setup your light/dark profiles in gnome-terminal in order to switch
+themes automatically. Configure them by edit:
+
+sudoedit /usr/bin/theme-switcher-auto.sh
+
 %prep
 %autosetup -n tim77-%{name}-%{shortcommit}
 
@@ -31,10 +36,13 @@ mv theme-switcher-auto.service  %{buildroot}%{_prefix}/lib/systemd/user
 mv theme-switcher-auto.timer    %{buildroot}%{_prefix}/lib/systemd/user
 
 %post
-systemctl --user enable --now theme-switcher-auto.timer
+%systemd_post theme-switcher-auto.timer
 
 %preun
-systemctl --user disable theme-switcher-auto.timer
+%systemd_preun theme-switcher-auto.timer
+
+%postun
+%systemd_postun_with_restart theme-switcher-auto.timer
 
 %files
 %doc README.md
@@ -46,4 +54,4 @@ systemctl --user disable theme-switcher-auto.timer
 
 %changelog
 * Wed Jun 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0-1.20190612gitceb42e5
-- Initial Package
+- Initial package
