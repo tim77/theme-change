@@ -1,18 +1,17 @@
-%global commit      3db178c3a9713534cf915590cb6c63204f9b9378
+%global commit      2d8980f59cf7a8308c1cc1cf06c1d076f2360586
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date        20190612
 
 Name:           theme-switcher
 Version:        0
-Release:        1.%{date}git%{shortcommit}%{?dist}
+Release:        2.%{date}git%{shortcommit}%{?dist}
 Summary:        Switch dark/light GTK theme automatically during day/night
 
 License:        GPLv3+
 URL:            https://github.com/tim77/theme-switcher
 Source0:        %{url}/tarball/%{commit}#/%{name}-%{version}.%{date}git%{shortcommit}.tar.gz
 
-%{?systemd_requires}
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 
 # Requires:       hicolor-icon-theme
 
@@ -20,7 +19,7 @@ BuildRequires:  systemd
 %{summary}.
 
 You need to setup your light/dark profiles in gnome-terminal in order to switch
-themes automatically. Configure them by edit:
+terminal themes automatically. Configure them by edit:
 
 sudoedit /usr/bin/theme-switcher-auto.sh
 
@@ -31,18 +30,18 @@ sudoedit /usr/bin/theme-switcher-auto.sh
 mkdir -p %{buildroot}%{_bindir}
 mv theme-switcher-auto.sh   %{buildroot}%{_bindir}
 mv theme-switcher-manual.sh %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_prefix}/lib/systemd/user
-mv theme-switcher-auto.service  %{buildroot}%{_prefix}/lib/systemd/user
-mv theme-switcher-auto.timer    %{buildroot}%{_prefix}/lib/systemd/user
+mkdir -p %{buildroot}%{_userunitdir}
+mv theme-switcher-auto.service  %{buildroot}%{_userunitdir}
+mv theme-switcher-auto.timer    %{buildroot}%{_userunitdir}
 
 %post
-%systemd_post theme-switcher-auto.timer
+%systemd_user_post %{name}-auto.timer
 
 %preun
-%systemd_preun theme-switcher-auto.timer
+%systemd_user_preun %{name}-auto.timer
 
 %postun
-%systemd_postun_with_restart theme-switcher-auto.timer
+%systemd_user_postun_with_restart %{name}-auto.timer
 
 %files
 %doc README.md
