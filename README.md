@@ -7,6 +7,12 @@ Switch dark/light GTK theme automatically during day/night
 git clone https://github.com/tim77/theme-switcher && cd theme-switcher
 ```
 
+Fedora COPR:
+
+```bash
+sudo dnf copr enable atim/theme-switcher -y && sudo dnf install theme-switcher -y
+```
+
 #### Run
 
 Automatically
