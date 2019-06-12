@@ -13,7 +13,7 @@ Source0:        %{url}/tarball/%{commit}#/%{name}-%{version}.%{date}git%{shortco
 
 BuildRequires:  systemd-rpm-macros
 
-# Requires:       hicolor-icon-theme
+Requires:       hicolor-icon-theme
 
 %description
 %{summary}.
@@ -33,6 +33,10 @@ mv theme-switcher-manual.sh %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_userunitdir}
 mv theme-switcher-auto.service  %{buildroot}%{_userunitdir}
 mv theme-switcher-auto.timer    %{buildroot}%{_userunitdir}
+mkdir -p %{buildroot}%{_datadir}/applications
+mv theme-switcher-manual.desktop %{_datadir}/applications/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/512x512
+mv light-dark-icon.png %{_datadir}/icons/hicolor/512x512/
 
 %post
 %systemd_user_post %{name}-auto.timer
@@ -48,6 +52,8 @@ mv theme-switcher-auto.timer    %{buildroot}%{_userunitdir}
 %license LICENSE
 %{_bindir}/%{name}-auto.sh
 %{_bindir}/%{name}-manual.sh
+%{_datadir}/applications/theme-switcher-manual.desktop
+%{_datadir}/icons/hicolor/512x512/light-dark-icon.png
 %{_userunitdir}/%{name}-auto.service
 %{_userunitdir}/%{name}-auto.timer
 
