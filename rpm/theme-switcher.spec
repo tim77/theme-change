@@ -1,4 +1,4 @@
-%global commit      2d8980f59cf7a8308c1cc1cf06c1d076f2360586
+%global commit      93dfc86a8f16cb7873f1dd1b36bbe84ed9c8b310
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date        20190612
 
@@ -48,8 +48,8 @@ mv theme-switcher-auto.timer    %{buildroot}%{_userunitdir}
 %license LICENSE
 %{_bindir}/%{name}-auto.sh
 %{_bindir}/%{name}-manual.sh
-%{_prefix}/lib/systemd/user/%{name}-auto.service
-%{_prefix}/lib/systemd/user/%{name}-auto.timer
+%{_userunitdir}/%{name}-auto.service
+%{_userunitdir}/%{name}-auto.timer
 
 %changelog
 * Wed Jun 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0-1.20190612gitceb42e5
