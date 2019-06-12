@@ -1,4 +1,4 @@
-%global commit      93dfc86a8f16cb7873f1dd1b36bbe84ed9c8b310
+%global commit      bbb7d16a030864c94bcee60f34b976848d35aedb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date        20190612
 
@@ -12,6 +12,7 @@ URL:            https://github.com/tim77/theme-switcher
 Source0:        %{url}/tarball/%{commit}#/%{name}-%{version}.%{date}git%{shortcommit}.tar.gz
 
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  desktop-file-utils
 
 Requires:       hicolor-icon-theme
 
@@ -34,9 +35,12 @@ mkdir -p %{buildroot}%{_userunitdir}
 mv theme-switcher-auto.service  %{buildroot}%{_userunitdir}
 mv theme-switcher-auto.timer    %{buildroot}%{_userunitdir}
 mkdir -p %{buildroot}%{_datadir}/applications
-mv theme-switcher-manual.desktop %{_datadir}/applications/
+mv theme-switcher.desktop %{buildroot}%{_datadir}/applications/
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/512x512
-mv light-dark-icon.png %{_datadir}/icons/hicolor/512x512/
+mv light-dark-icon.png %{buildroot}%{_datadir}/icons/hicolor/512x512/
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %post
 %systemd_user_post %{name}-auto.timer
@@ -52,7 +56,7 @@ mv light-dark-icon.png %{_datadir}/icons/hicolor/512x512/
 %license LICENSE
 %{_bindir}/%{name}-auto.sh
 %{_bindir}/%{name}-manual.sh
-%{_datadir}/applications/theme-switcher-manual.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/512x512/light-dark-icon.png
 %{_userunitdir}/%{name}-auto.service
 %{_userunitdir}/%{name}-auto.timer
