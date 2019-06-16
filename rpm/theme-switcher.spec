@@ -1,4 +1,4 @@
-%global commit      d7724af4fa1fd369922943168e212acc5a652b86
+%global commit      9e2bda6ae066670626a39fe2665d3a2b476c7d66
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date        20190612
 
@@ -52,7 +52,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %systemd_user_postun_with_restart %{name}-auto.timer
 
 %files
-%doc README.md
+%doc README.md CREDITS
 %license LICENSE
 %{_bindir}/%{name}-auto.sh
 %{_bindir}/%{name}-manual.sh

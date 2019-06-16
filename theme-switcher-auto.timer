@@ -2,7 +2,7 @@
 Description=Switch dark/light GTK theme automatically during day/night
 
 [Timer]
-OnBootSec=30 sec
+OnBootSec=2 min
 OnUnitActiveSec=1 hour
 Persistent=true
 
