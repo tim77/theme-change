@@ -1,10 +1,10 @@
-%global commit      9e2bda6ae066670626a39fe2665d3a2b476c7d66
+%global commit      b985a36c0def9f857930f4641de81e19536db80c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20190612
+%global date        20190627
 
 Name:           theme-switcher
 Version:        0
-Release:        2.%{date}git%{shortcommit}%{?dist}
+Release:        3.%{date}git%{shortcommit}%{?dist}
 Summary:        Switch dark/light GTK theme automatically during day/night
 
 License:        GPLv3+
@@ -62,5 +62,5 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_userunitdir}/%{name}-auto.timer
 
 %changelog
-* Wed Jun 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0-1.20190612gitceb42e5
+* Wed Jun 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0-3.20190612gitceb42e5
 - Initial package
